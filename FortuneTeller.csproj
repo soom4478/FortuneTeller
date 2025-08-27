@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{253FCFD0-832D-4224-A700-0B6FD4741FDB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>DreamLens</RootNamespace>
-    <AssemblyName>DreamLens</AssemblyName>
+    <RootNamespace>FortuneTeller</RootNamespace>
+    <AssemblyName>FortuneTeller</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -83,6 +83,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

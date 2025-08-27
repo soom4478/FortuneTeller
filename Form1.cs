@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DreamLens
+namespace FortuneTeller
 {
     public partial class Form1 : Form
     {
@@ -29,8 +29,16 @@ namespace DreamLens
 
         private void 내역불러오기ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormHistory form = new FormHistory();
-            form.Show();
+            FormHistory form = Application.OpenForms["FormHistory"] as FormHistory;
+            if(form != null)
+            {
+                form.Activate();
+            }
+            else
+            {
+                form = new FormHistory();
+                form.Show();
+            }
         }
 
         private void 끝내기ToolStripMenuItem_Click(object sender, EventArgs e)

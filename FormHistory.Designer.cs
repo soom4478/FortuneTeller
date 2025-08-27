@@ -1,4 +1,4 @@
-﻿namespace DreamLens
+﻿namespace FortuneTeller
 {
     partial class FormHistory
     {

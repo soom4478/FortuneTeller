@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DreamLens
+namespace FortuneTeller
 {
     public partial class FormAbout : Form
     {
