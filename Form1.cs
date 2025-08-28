@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FortuneTeller;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,7 +14,7 @@ namespace FortuneTeller
 {
     public partial class Form1 : Form
     {
-        List<string> history; 
+        List<string> results;
 
         public Form1()
         {
@@ -25,47 +26,36 @@ namespace FortuneTeller
         {
             try
             {
-                string filename = "history.csv";
-                history = File.ReadAllLines(filename).ToList();
+                string filename = "results.csv";
+                results = File.ReadAllLines(filename).ToList();
             }
             catch (FileNotFoundException ex)
             {
-                MessageBox.Show($"파일이 없어요.\n{ex.Message}", "파일 오류",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"파일이 없어요.\n{ex.Message}", "파일 없음");
             }
             catch (UnauthorizedAccessException ex)
             {
-                MessageBox.Show($"권환이 없어요.\n{ex.Message}", "권한 오류",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"권한이 없어요.\n{ex.Message}", "권한 오류");
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"알 수 없는 오류가 발생했어요.\n{ex.Message}", "알 수 없는 오류",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
         private string GetFortune()
         {
             Random random = new Random();
-            int index = random.Next(0, history.Count);
-            return history[index];
+            int index = random.Next(0, results.Count);
+            return results[index];
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void 내역불러오기ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 내열불러오기ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormHistory form = Application.OpenForms["FormHistory"] as FormHistory;
-            if(form != null)
+            if (form != null)
             {
                 form.Activate();
             }
@@ -76,7 +66,7 @@ namespace FortuneTeller
             }
         }
 
-        private void 끝내기ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 끝내ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
@@ -90,13 +80,13 @@ namespace FortuneTeller
         private void btnResult_Click(object sender, EventArgs e)
         {
             string birthday = tbBirthday.Text;
-            string birthhour = tbBirthHour.Text;
+            string birthhour = tbBirthhour.Text;
             string result = GetFortune();
             string saju = result.Split('|')[0];
             string message = result.Split('|')[1];
             tbResult.Text = $"{birthday} {birthhour}{Environment.NewLine}"
-                + $"{saju}{Environment.NewLine}"
-                + $"{message}";
+               + $"{saju}{Environment.NewLine}"
+               + $"{message}";
             SaveHistory($"{birthday} {birthhour}|{result}");
         }
 
@@ -106,13 +96,32 @@ namespace FortuneTeller
             {
                 string filename = "history.csv";
                 File.AppendAllText(filename, history + Environment.NewLine);
-            } catch (UnauthorizedAccessException ex)
+            }
+            catch (UnauthorizedAccessException ex)
             {
                 MessageBox.Show($"권한 없음 오류 발생!\n{ex.Message}", "권한 오류");
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show($"알 수 없는 오류 발생!\n{ex.Message}", "알 수 없는 오류");
             }
+
+        }
+
+        public void LoadHistory(string history)
+        {
+            // 19820108 21|사주사주사주사주|뭐시기뭐시기 
+            // -->   [0] 19820108 21 / [1] 사주사주사주사주 / [2] 뭐시기뭐시기
+            string birthday = history.Split('|')[0].Split(' ')[0];
+            string birthhour = history.Split('|')[0].Split(' ')[1];
+            tbBirthday.Text = birthday;
+            tbBirthhour.Text = birthhour;
+
+            string saju = history.Split('|')[1];
+            string message = history.Split('|')[2];
+            tbResult.Text = $"{birthday} {birthhour}{Environment.NewLine}"
+               + $"{saju}{Environment.NewLine}"
+               + $"{message}";
         }
     }
 }
