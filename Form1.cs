@@ -13,7 +13,7 @@ namespace FortuneTeller
 {
     public partial class Form1 : Form
     {
-        List<string> results; 
+        List<string> history; 
 
         public Form1()
         {
@@ -25,8 +25,8 @@ namespace FortuneTeller
         {
             try
             {
-                string filename = "results.csv";
-                results = File.ReadAllLines(filename).ToList();
+                string filename = "history.csv";
+                history = File.ReadAllLines(filename).ToList();
             }
             catch (FileNotFoundException ex)
             {
@@ -48,8 +48,8 @@ namespace FortuneTeller
         private string GetFortune()
         {
             Random random = new Random();
-            int index = random.Next(0,  results.Count);
-            return results[index];
+            int index = random.Next(0, history.Count);
+            return history[index];
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -71,7 +71,7 @@ namespace FortuneTeller
             }
             else
             {
-                form = new FormHistory();
+                form = new FormHistory(this);
                 form.Show();
             }
         }

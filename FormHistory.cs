@@ -12,9 +12,18 @@ namespace FortuneTeller
 {
     public partial class FormHistory : Form
     {
-        public FormHistory()
+        List<string> history;
+        Form form1;
+
+        public FormHistory(Form1 form)
         {
+            this.form1 = form;
             InitializeComponent();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
